@@ -1,6 +1,7 @@
-module event_bus
+module events
 
 import eventbus
+import time
 
 const (
 	eb = eventbus.new()
@@ -8,25 +9,20 @@ const (
 
 pub struct EventBusController {}
 
-pub struct Duration {
-pub:
-	hours int
-}
-
 pub struct EventMetadata {
 pub:
-	message string
+	data string
 }
 
 pub fn get_controller() EventBusController {
 	return EventBusController{}
 }
 
-pub fn (controller &EventBusController) publish(event string, event_metadata &EventMetadata, duration &Duration) {
-	event_bus.eb.publish(event, duration, event_metadata)
+pub fn (controller &EventBusController) publish(event string, event_metadata &EventMetadata, event_time &time.Time) {
+	events.eb.publish(event, event_time, event_metadata)
 }
 
 pub fn (controller &EventBusController) subscribe(event string, handler eventbus.EventHandlerFn) {
-	mut subscriber := *event_bus.eb.subscriber
+	mut subscriber := *events.eb.subscriber
 	subscriber.subscribe(event, handler)
 }

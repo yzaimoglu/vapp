@@ -1,3 +1,3 @@
 run:
-	v src
-	./src/src
+	v .
+	./vlang
